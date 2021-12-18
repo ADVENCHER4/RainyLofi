@@ -4,10 +4,67 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rainy Lofi</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="margin: 0; overflow: hidden;">
-    <canvas id="canvas" style="display: block;"></canvas>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="rainplayer" class="player"></div>
+    <div id="lofiplayer" class="player"></div>
+    <div>
+        <img id="button" onclick="onClick()" class="statebutton">
+    </div>
+    <script>
+        var rainPlayer;
+        var lofiPlayer;
+        var isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            rainPlayer = new YT.Player("rainplayer", {
+                height: '360',
+                width: '640',
+                videoId: 'PSod4eZefx8',
+                playerVars: {
+                    loop: 1,
+                    disablekb: 1,
+                    playlist: 'PSod4eZefx8',
+                    iv_load_policy: 3,
+                },
+
+            });
+            lofiPlayer = new YT.Player("lofiplayer",{
+                height: '360',
+                width: '640',
+                videoId: '5qap5aO4i9A',
+                playerVars: {
+                    loop: 1,
+                    disablekb: 1,
+                    playlist: '5qap5aO4i9A',
+                    iv_load_policy: 3,
+                },
+            });
+            lofiPlayer.setVolume(80);
+        }
+
+        function changeState() {
+            if (isPlaying){
+                rainPlayer.playVideo();
+                lofiPlayer.playVideo();
+
+            } else{
+                rainPlayer.pauseVideo();
+                lofiPlayer.pauseVideo();
+            }
+        }
+        function onClick() {
+            isPlaying = !isPlaying;
+            changeState();
+        }
+
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script type="module" src="src/main.js"></script>
 </body>
+
 </html>

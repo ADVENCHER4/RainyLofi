@@ -15,8 +15,7 @@ button.src = mutedImage;
 
 
 function clear() {
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, innerWidth, innerHeight);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 }
 
 function initCanvas() {

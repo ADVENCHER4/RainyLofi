@@ -6,12 +6,3 @@ export class Drop{
         this.length = length;
     }
 }
-
-
-
-
-
-
-
-
-

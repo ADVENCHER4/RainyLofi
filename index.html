@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,9 +14,13 @@
     <canvas id="canvas"></canvas>
     <div id="rainplayer" class="player"></div>
     <div id="lofiplayer" class="player"></div>
-    <div>
-        <img id="button" onclick="onClick()" class="statebutton">
+    <div id="overlay" class="overlay">
+        <img id="soundbutton" onclick="onClick()" class="button">
+        <img id="settingsbutton" class="button"
+            src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/microsoft/209/gear_2699.png">
     </div>
+    <div id="settings" class="settings"></div>
+    
     <script>
         var rainPlayer;
         var lofiPlayer;
@@ -34,7 +39,7 @@
                 },
 
             });
-            lofiPlayer = new YT.Player("lofiplayer",{
+            lofiPlayer = new YT.Player("lofiplayer", {
                 height: '360',
                 width: '640',
                 videoId: '5qap5aO4i9A',
@@ -45,15 +50,14 @@
                     iv_load_policy: 3,
                 },
             });
-            lofiPlayer.setVolume(80);
         }
 
         function changeState() {
-            if (isPlaying){
+            if (isPlaying) {
                 rainPlayer.playVideo();
                 lofiPlayer.playVideo();
 
-            } else{
+            } else {
                 rainPlayer.pauseVideo();
                 lofiPlayer.pauseVideo();
             }

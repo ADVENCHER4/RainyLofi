@@ -1,6 +1,6 @@
 body{
     margin: 0; 
-    overflow: hidden; 
+    /* overflow: hidden;  */
     background-image: url(https://mocah.org/uploads/posts/913512-pixel-art-pixels-tram-rain-puddle-cyan.png);
     background-size: cover;
 }
@@ -9,15 +9,105 @@ canvas{
     display: block;
 }
 
+p{
+    color: white;
+    margin-bottom: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+button{
+    margin-top: 0.5rem;
+}
+
+.settingsform{
+    background-color: #000000de;
+    border-radius: 20px;
+    width: 175px;
+    height: 500px;
+    padding: 5px 30px;
+    margin: 0;
+}
 .player{
     position: absolute; 
     top: -9999px; 
     left: -9999px;
 }
-.statebutton{
+
+.button{
+    width: 3rem;
+    height: 3rem;
+}
+
+.overlay{
     position: absolute;
     top: 2%; 
     right: 1%;
     width: 3rem;
     height: 3rem;
 }
+
+.settings{
+    position: absolute;
+    top: 18%; 
+    right: 200px;
+    width: 3rem;
+    height: 3rem;
+}
+
+input[type="range"]{
+    -webkit-appearance: none; 
+    appearance: none;
+    background: #d3d3d3;
+    height: 10px;
+    width: 170px;
+    border-radius: 3px;
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; 
+    height: 20px; 
+    border-radius: 3px;
+    background: #ffffff; 
+    cursor: pointer; 
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px; 
+    height: 20px; 
+    border-radius: 3px;
+    background: #ffffff; 
+    cursor: pointer; /* Cursor on hover */
+}
+input[type="text"] {
+    border: 1px solid #d3d3d3; 
+    border-radius: 10px; 
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px; 
+    -khtml-border-radius: 3px; 
+    background: #ffffff !important; 
+    outline: none; 
+    height: 20px; 
+    width: 170px; 
+    color: #969696; 
+    font-size: 14px; 
+    font-family: monospace;
+    ; 
+ }
+ input[type="text"]:focus {
+    color: #000000;
+  }
+  button{
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: lightgreen;
+      border: none;
+      border-radius: 3px;
+      color: white;
+      width: 100px;
+      height: 30px;
+      margin-top: 15px;
+  }

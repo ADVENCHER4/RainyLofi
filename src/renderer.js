@@ -1,4 +1,5 @@
 import { Rain } from "./rain.js";
+import { settings } from "./values.js";
 
 var rain = new Rain();
 var canvas = document.getElementById("canvas");
@@ -10,8 +11,8 @@ function clear() {
 export function initCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    ctx.strokeStyle = "#7fffd4";
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = settings["color"];
+    ctx.lineWidth = settings["width"];
 }
 export function redrawRain() {
     clear();

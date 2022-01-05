@@ -20,21 +20,35 @@
             src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/microsoft/209/gear_2699.png">
     </div>
     <div id="settings" class="settings"></div>
-    
+
     <script>
+        const standardSettings = {
+            "rainsound": "https://www.youtube.com/watch?v=PSod4eZefx8",
+            "music": "https://www.youtube.com/watch?v=5qap5aO4i9A",
+        }
+        var settings;
+
+        if (localStorage.getItem("settings") === undefined || localStorage.getItem("settings") === null) {
+            settings = standardSettings;
+        } else {
+            settings = JSON.parse(localStorage.getItem("settings"));
+        }
+
         var rainPlayer;
         var lofiPlayer;
         var isPlaying = false;
+        var musicSource = settings["music"].slice(32);
+        var rainSource = settings["rainsound"].slice(32);
 
         function onYouTubeIframeAPIReady() {
             rainPlayer = new YT.Player("rainplayer", {
                 height: '360',
                 width: '640',
-                videoId: 'PSod4eZefx8',
+                videoId: rainSource,
                 playerVars: {
                     loop: 1,
                     disablekb: 1,
-                    playlist: 'PSod4eZefx8',
+                    playlist: rainSource,
                     iv_load_policy: 3,
                 },
 
@@ -42,16 +56,15 @@
             lofiPlayer = new YT.Player("lofiplayer", {
                 height: '360',
                 width: '640',
-                videoId: '5qap5aO4i9A',
+                videoId: musicSource,
                 playerVars: {
                     loop: 1,
                     disablekb: 1,
-                    playlist: '5qap5aO4i9A',
+                    playlist: musicSource,
                     iv_load_policy: 3,
                 },
             });
         }
-
         function changeState() {
             if (isPlaying) {
                 rainPlayer.playVideo();

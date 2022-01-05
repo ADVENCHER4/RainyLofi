@@ -12,6 +12,8 @@ button.src = mutedImage;
 initSettings();
 initCanvas();
 setInterval(redrawRain, settings["speed"]);
+document.body.style.background = "url(" + settings["background"]+ ")";
+document.body.style.backgroundSize = "cover";
 
 function swapImage() {
     isPlaying = !isPlaying;
@@ -25,13 +27,13 @@ function openSettings() {
     isSettingsOpened = !isSettingsOpened;
     if (isSettingsOpened) {
         settingsField.innerHTML = settingsForm;
+        document.getElementById("background").value = settings["background"];
         document.getElementById("width").value = settings["width"];
-        document.getElementById("speed").value = settings["speed"];
+        document.getElementById("speed").value = 100 - settings["speed"];
         document.getElementById("angle").value = settings["angle"];
         document.getElementById("color").value = settings["color"];
         document.getElementById("rainsound").value = settings["rainsound"];
         document.getElementById("music").value = settings["music"];
-        document.getElementById("volume").value = settings["volume"];
         document.getElementById("savebutton").addEventListener("click", savePrefs);
     } else {
         settingsField.innerHTML = "";
@@ -39,15 +41,15 @@ function openSettings() {
 }
 function savePrefs() {
     var rawSettings = {
+        "background": document.getElementById("background").value,
         "width": document.getElementById("width").value,
-        "speed": document.getElementById("speed").value,
+        "speed": 100 - document.getElementById("speed").value,
         "angle": document.getElementById("angle").value,
         "color": document.getElementById("color").value,
         "rainsound": document.getElementById("rainsound").value,
         "music": document.getElementById("music").value,
-        "volume": document.getElementById("volume").value
     };
-    if(rawSettings["color"] && rawSettings["rainsound"] && rawSettings["music"]){
+    if(rawSettings["color"] && rawSettings["rainsound"] && rawSettings["music"] && rawSettings["background"]){
         localStorage.setItem("settings", JSON.stringify(rawSettings));
     } else{
         localStorage.setItem("settings", JSON.stringify(standardSettings));

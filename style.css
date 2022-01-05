@@ -1,8 +1,6 @@
 body{
     margin: 0; 
-    /* overflow: hidden;  */
-    background-image: url(https://mocah.org/uploads/posts/913512-pixel-art-pixels-tram-rain-puddle-cyan.png);
-    background-size: cover;
+    overflow: hidden; 
 }
 
 canvas{
@@ -23,8 +21,8 @@ button{
 .settingsform{
     background-color: #000000de;
     border-radius: 20px;
-    width: 175px;
-    height: 500px;
+    width: 177px;
+    height: 460px;
     padding: 5px 30px;
     margin: 0;
 }

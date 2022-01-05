@@ -13,19 +13,28 @@ export function initCanvas() {
     canvas.height = window.innerHeight;
     ctx.strokeStyle = settings["color"];
     ctx.lineWidth = settings["width"];
+
 }
 export function redrawRain() {
     clear();
     for (var i = 0; i < rain.drops.length; i++) {
         var drop = rain.drops[i];
+        var offset = drop.length * Math.tan(settings["angle"] * Math.PI / 180);
         ctx.beginPath();
         ctx.moveTo(drop.x, drop.y);
-        ctx.lineTo(drop.x, drop.y + drop.length);
+        ctx.lineTo(drop.x + offset, drop.y + drop.length);
         ctx.stroke();
         drop.y += drop.speed;
-        if (drop.y >= window.innerHeight) {
+        drop.x += offset /drop.speed;
+        if (drop.x < 0) {
+            drop.x += canvas.width;
+        } else if (drop.x > canvas.width) {
+            drop.x -= canvas.width;
+        }
+        if (drop.y >= canvas.height) {
             rain.deleteDrop(i);
         }
+
     }
     rain.createDrops();
 }

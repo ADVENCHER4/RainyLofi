@@ -1,55 +1,60 @@
-import { Rain } from "./rain.js";
-
-const mutedImage = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/microsoft/209/speaker_1f508.png";
-const unmutedImage = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/microsoft/209/speaker-with-three-sound-waves_1f50a.png";
-
-var rain = new Rain();
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var button = document.getElementById("button");
+import { redrawRain, initCanvas } from "./renderer.js";
+import { unmutedImage, mutedImage, settingsForm, settings, standardSettings, initSettings } from "./values.js";
 var isPlaying = false;
-initCanvas();
+var isSettingsOpened = false;
+var button = document.getElementById("soundbutton");
+var settingsField = document.getElementById("settings");
+
 window.addEventListener("resize", initCanvas);
-button.addEventListener("click", onClicked);
+document.getElementById("soundbutton").addEventListener("click", swapImage);
+document.getElementById("settingsbutton").addEventListener("click", openSettings);
 button.src = mutedImage;
+initSettings();
+initCanvas();
+setInterval(redrawRain, settings["speed"]);
+document.body.style.background = "url(" + settings["background"]+ ")";
+document.body.style.backgroundSize = "cover";
 
-
-function clear() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-}
-
-function initCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    ctx.strokeStyle = "aquamarine";
-    ctx.lineWidth = 2;
-}
-
-function onClicked(){
+function swapImage() {
     isPlaying = !isPlaying;
-    swapImage();
-}
-
-function swapImage(){
-    if(isPlaying){
+    if (isPlaying) {
         button.src = unmutedImage;
-    } else{
+    } else {
         button.src = mutedImage;
     }
 }
-
-setInterval(function () {
-    clear();
-    for (var i = 0; i < rain.drops.length; i++) {
-        var drop = rain.drops[i];
-        ctx.beginPath();
-        ctx.moveTo(drop.x, drop.y);
-        ctx.lineTo(drop.x, drop.y + drop.length);
-        ctx.stroke();
-        drop.y += drop.speed;
-        if (drop.y >= window.innerHeight) {
-            rain.deleteDrop(i);
-        }
+function openSettings() {
+    isSettingsOpened = !isSettingsOpened;
+    if (isSettingsOpened) {
+        settingsField.innerHTML = settingsForm;
+        document.getElementById("background").value = settings["background"];
+        document.getElementById("width").value = settings["width"];
+        document.getElementById("speed").value = 100 - settings["speed"];
+        document.getElementById("angle").value = settings["angle"];
+        document.getElementById("color").value = settings["color"];
+        document.getElementById("rainsound").value = settings["rainsound"];
+        document.getElementById("music").value = settings["music"];
+        document.getElementById("savebutton").addEventListener("click", savePrefs);
+    } else {
+        settingsField.innerHTML = "";
     }
-    rain.createDrops();
-}, 8);
+}
+function savePrefs() {
+    var rawSettings = {
+        "background": document.getElementById("background").value,
+        "width": document.getElementById("width").value,
+        "speed": 100 - document.getElementById("speed").value,
+        "angle": document.getElementById("angle").value,
+        "color": document.getElementById("color").value,
+        "rainsound": document.getElementById("rainsound").value,
+        "music": document.getElementById("music").value,
+    };
+    if(rawSettings["color"] && rawSettings["rainsound"] && rawSettings["music"] && rawSettings["background"]){
+        localStorage.setItem("settings", JSON.stringify(rawSettings));
+    } else{
+        localStorage.setItem("settings", JSON.stringify(standardSettings));
+    }
+
+    location.reload();
+    openSettings();
+}

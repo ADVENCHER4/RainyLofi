@@ -20,7 +20,7 @@ const settingsForm = `
 </form>
 `;
 const standardSettings = {
-    "background": "https://mocah.org/uploads/posts/913512-pixel-art-pixels-tram-rain-puddle-cyan.png",
+    "background": "https://cdn6.aptoide.com/imgs/0/1/4/014be28e2e66abc79afe5b216e856a9b_fgraphic.png",
     "width": 2,
     "speed": 8,
     "angle": 0,

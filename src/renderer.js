@@ -19,13 +19,13 @@ export function redrawRain() {
     clear();
     for (var i = 0; i < rain.drops.length; i++) {
         var drop = rain.drops[i];
-        var offset = drop.length * Math.tan(settings["angle"] * Math.PI / 180);
+        var offset = drop.length * Math.sin(settings["angle"] * Math.PI / 180);
         ctx.beginPath();
         ctx.moveTo(drop.x, drop.y);
         ctx.lineTo(drop.x + offset, drop.y + drop.length);
         ctx.stroke();
         drop.y += drop.speed;
-        drop.x += offset /drop.speed;
+        drop.x += offset /(drop.speed * 2 / 3);
         if (drop.x < 0) {
             drop.x += canvas.width;
         } else if (drop.x > canvas.width) {

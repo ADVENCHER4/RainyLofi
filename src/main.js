@@ -1,5 +1,6 @@
 import { redrawRain, initCanvas } from "./renderer.js";
 import { unmutedImage, mutedImage, settingsForm, settings, standardSettings, initSettings } from "./values.js";
+
 var isPlaying = false;
 var isSettingsOpened = false;
 var button = document.getElementById("soundbutton");
@@ -7,7 +8,7 @@ var settingsField = document.getElementById("settings");
 
 window.addEventListener("resize", initCanvas);
 document.getElementById("soundbutton").addEventListener("click", swapImage);
-document.getElementById("settingsbutton").addEventListener("click", openSettings);
+document.getElementById("settingsbutton").addEventListener("click", switchSettings);
 button.src = mutedImage;
 initSettings();
 initCanvas();
@@ -23,7 +24,7 @@ function swapImage() {
         button.src = mutedImage;
     }
 }
-function openSettings() {
+function switchSettings() {
     isSettingsOpened = !isSettingsOpened;
     if (isSettingsOpened) {
         settingsField.innerHTML = settingsForm;
@@ -56,5 +57,5 @@ function savePrefs() {
     }
 
     location.reload();
-    openSettings();
+    switchSettings();
 }
